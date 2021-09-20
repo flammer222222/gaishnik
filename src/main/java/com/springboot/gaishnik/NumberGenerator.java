@@ -18,8 +18,12 @@ public class NumberGenerator {
 	private HashSet<String> numbersUsed = new HashSet<>();
 	private final Logger LOGGER = Logger.getLogger(NumberGenerator.class.getName());
 	
-	private void numberToString() {
-		
+	private void convertNumberToString() {
+		number = alphabet.charAt(currentNumber[0]) + 
+				 String.format("%03d", (currentNumber[1])) + 
+				 alphabet.charAt(currentNumber[2]) + 
+				 alphabet.charAt(currentNumber[3]) + 
+				 REGION;
 	}
 	private boolean increaseNumber() {
 		currentNumber[1] += 1;
@@ -43,8 +47,11 @@ public class NumberGenerator {
 	
 	public String GetNextNumber() {
 		for(int i = 0; i < 12*12*12*1000; i++) {
-			if(increaseNumber() && numbersUsed.add(number))
-				return number;
+			if(increaseNumber()) {
+				convertNumberToString();
+				if(numbersUsed.add(number))
+					return number;
+			}
 		}
 		return "Все номера заняты";
 	}
@@ -56,11 +63,7 @@ public class NumberGenerator {
 			currentNumber[1] = (int)(Math.random() * 1000);
 			currentNumber[2] = (int)(Math.random() * alphabet.length());
 			currentNumber[3] = (int)(Math.random() * alphabet.length());
-			number = alphabet.charAt(currentNumber[0]) + 
-					 String.format("%03d", (currentNumber[1])) + 
-					 alphabet.charAt(currentNumber[2]) + 
-					 alphabet.charAt(currentNumber[3]) + 
-					 REGION;
+			convertNumberToString();
 			if(numbersUsed.add(number))
 				return number;
 		}
