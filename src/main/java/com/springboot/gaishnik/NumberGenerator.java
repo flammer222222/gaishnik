@@ -7,7 +7,7 @@ public class NumberGenerator {
 	private String number = "";
 	// инициализируем с -1, чтобы при первом получение с метода nextNumber()
 	// вернулось 0 значение
-	private int[] currentNumber = {-1, -1, -1, -1};
+	private int[] currentNumber = {0, -1, 0, 0};
 	private final String REGION = " 116 RUS";
 	
 	//	В номерах используются только 12 букв, потому что для остальных
@@ -18,9 +18,35 @@ public class NumberGenerator {
 	private HashSet<String> numbersUsed = new HashSet<>();
 	private final Logger LOGGER = Logger.getLogger(NumberGenerator.class.getName());
 	
-	public String GetNextNumber() {
+	private void numberToString() {
 		
-		return " ";
+	}
+	private boolean increaseNumber() {
+		currentNumber[1] += 1;
+		if(currentNumber[1] == 1000) {
+			currentNumber[1] = 0;
+			currentNumber[3] +=1;
+			if(currentNumber[3] == 12) {
+				currentNumber[3] = 0;
+				currentNumber[2] += 1;
+				if(currentNumber[2] == 12) {
+					currentNumber[2] = 0;
+					currentNumber[0] += 1;
+					if(currentNumber[0] == 12) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
+	public String GetNextNumber() {
+		for(int i = 0; i < 12*12*12*1000; i++) {
+			if(increaseNumber() && numbersUsed.add(number))
+				return number;
+		}
+		return "Все номера заняты";
 	}
 	
 	public String GetRandomNumber() {

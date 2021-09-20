@@ -10,7 +10,7 @@ public class HelloController {
 	
 	@GetMapping("/welcome")
 	public String helloWorld() {
-		return NumberGenerator.GetRandomNumber();
-//		return Integer.toString((int)(Math.random()*1000));
+		return NumberGenerator.GetNextNumber();
+//		return NumberGenerator.GetRandomNumber();
 	}
 }
