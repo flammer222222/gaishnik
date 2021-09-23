@@ -3,14 +3,22 @@ package com.springboot.gaishnik;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.Math;
 @RestController
 public class HelloController {
 	private NumberGenerator NumberGenerator= new NumberGenerator();
 	
-	@GetMapping("/welcome")
-	public String helloWorld() {
+	@GetMapping("/number/next")
+	public String GetNextNumbe() {
 		return NumberGenerator.GetNextNumber();
-//		return NumberGenerator.GetRandomNumber();
+	}
+	@GetMapping("/number/random")
+	public String GetRandomNumber() {
+		return NumberGenerator.GetRandomNumber();
+	}
+	
+	
+	@GetMapping("/test")
+	public boolean test() {
+		return NumberGenerator.setCurrentNumber("A999РХ 116 RUS");
 	}
 }
